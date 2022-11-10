@@ -16,9 +16,11 @@
             <div class="keyin">
                 {{keyin}}
             </div>
-            result: {{result}}
             <br>
             current operator: {{operator}}
+            <br>
+            result: {{result}}
+           
         </div>
         <div class="numBtns">
             <button v-for="num in 9" :key="num" @click="keyNumber(num)">{{num}}</button>

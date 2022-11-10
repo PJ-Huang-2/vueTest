@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="text" placeholder="Add sth to do" 
+               @keyup.enter="addTodo(newTodo)" v-model="newTodo">
+        <h2>事項列表</h2>
+        <ul >
+          <li v-for="todo in todos" >
+            {{todo.content}}
+            -- <a href="#" @click.prevent="removeTodo(todo)">刪除</a>
+          </li>
+        </ul>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+            Vue.createApp({ 
+                data(){
+                    return {
+                        todos:[],
+                        newTodo:''
+                    }
+                },
+                methods:{
+                    addTodo(todo){
+                    this.todos.push({content:todo,completed: false})
+                    },//this = todos[] 
+                    removeTodo(todo){
+                    this.todos.splice(this.todos.indexOf(todo), 1);
+                    }
+                }
+            }).mount("#app") 
+    </script>
+    
+</body>
+</html>

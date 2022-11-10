@@ -1,3 +1,4 @@
 {
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "livePreview.defaultPreviewPath": "c:\\Users\\Tibame_T14\\Documents\\VueTest\\05products.html"
 }
