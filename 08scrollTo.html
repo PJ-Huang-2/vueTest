@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <section id="section1" ref="section1">
+            1
+            <button @click="scrollDown">︾</button>
+        </section>
+        <section id="section2" ref="section2">2</section>
+        <section id="section3" ref="section3">
+            3
+            <button @click="scrollTo">︽</button>
+        </section>
+        <div class="blockBtnBox">
+            <button v-for="item in 3" @click="scrollBlock(item)">{{item}}</button>
+        </div>
+        
+     </div>   
+    
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        //新增一個應用application→建立Vue實體(instance)
+        // console.log(Vue);
+            Vue.createApp({ 
+                data(){
+                    return {
+                        
+                    }
+                },
+                methods: {
+                    scrollTo(){
+                        console.log(1);
+                        window.scrollTo({
+                            top:0,
+                            behavior: "smooth"
+                        })
+
+                    },
+                    scrollDown(){
+                        // const box = document.getElementById('section3')
+                        // console.log(box)
+                        const box = this.$refs.section2
+                        window.scrollTo({
+                            top: box.offsetTop,
+                            behavior: "smooth"
+                        })
+                    },
+                    scrollBlock(block){
+                        const box = this.$refs[`section${block}`]
+                        window.scrollTo({
+                            top: box.offsetTop,
+                            behavior: "smooth"
+                        })
+                    }
+                },
+            }).mount("#app") 
+    </script>
+
+</body>
+</html>
+<style>
+    #app {
+        position: relative;
+    }
+    .blockBtnBox {
+        position: fixed;
+        left: 0;
+        top: 50%;
+        width: 50px;
+        height: 100px
+
+    }
+
+
+    section {
+        position: relative;
+        height: 100vh;
+        font-size: 50vh;
+        text-align: center;
+    }
+    button {    
+        /* display: block; */
+        bottom: 1rem;
+        left: 50%;
+        width: 3rem;
+        height: 3rem;
+        font-size: 3rem;
+        background-color: transparent;
+        outline: none;
+        border: none;
+    }
+
+    #section1 {
+        background-color:burlywood;
+
+    }
+    #section2 {
+        background-color: darkkhaki;
+    }
+    #section3 {
+        background-color: mediumseagreen;
+    }
+</style>

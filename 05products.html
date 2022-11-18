@@ -113,7 +113,7 @@
                     getResource(){
                         this.load = true
                         fetch('https://fakestoreapi.com/products')
-                        .then(res=>res.json())
+                        .then(res=>res.json()) //也是一種promise
                         .then(json=>{
                                 this.source = json
                             // console.log(json))
