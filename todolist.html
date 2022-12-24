@@ -26,6 +26,7 @@
             -- <a href="#" @click.prevent="removeTodo(todo)">刪除</a>
           </li>
         </ul>
+        <button @click="ooo()">ALL</button>
     </div>
     <script src="https://unpkg.com/vue@next"></script>
     <script>
@@ -44,8 +45,12 @@
                     removeTodo(todo){
                     this.todos.splice(this.todos.indexOf(todo), 1);
                     
+                },
+                ooo(){
+                    completed: true;
                 }
-            }
+            },
+
         }).mount("#app") 
     </script>
     

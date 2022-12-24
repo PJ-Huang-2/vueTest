@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <div id="app">
+        <h1>分頁功能</h1>
+        <div class="products-wrapper">
+            <div class="product" v-for="item in products" :key="item.id">
+                <div class="product-img">
+                    <img :src="item.images[0]" alt="">
+                </div>
+                <div>
+                    <div class="product-title">{{item.title}}</div>
+                    <div class="product-price">$:&nbsp;{{item.price}}</div>
+                    <div class="product-description">{{item.description}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="btns">
+            <button v-show="currentPage>0" @click="changeCurrentPage(currentPage-1)">&lt;</button>
+            <!-- 不知道api總計有多少頁，假設上限5頁 -->
+            <button :class="{active:index===currentPage}" v-for="(page,index) in 5" :key="index"
+                @click="changeCurrentPage(index)">{{index+1}}</button>
+            <button v-show="currentPage<4" @click="changeCurrentPage(currentPage+1)">&gt;</button>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    isCurrentPage: false,
+                    currentPage: 0,
+                    products: []
+                }
+            },
+            watch: {
+                // 監聽currentPage，當currentPage變化時重新調用getPageItem並傳入newPage
+                currentPage: function (newPage, oldPage) {
+                    this.getPageItem(newPage)
+                }
+            }
+            , methods: {
+                // 取得某一頁商品資料
+                getPageItem(page) {
+                    fetch(`https://api.escuelajs.co/api/v1/products?offset=${page * 10}&limit=10`)
+                        .then(res => res.json())
+                        .then(json => this.products = json)
+                },
+                changeCurrentPage(page) {
+                    this.currentPage = page
+                }
+            },
+            created() {
+                this.getPageItem(this.currentPage)
+            },
+        }).mount('#app')
+    </script>
+</body>
+
+</html>
